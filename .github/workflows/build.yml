@@ -95,12 +95,18 @@ jobs:
       - name: Export ccache + determinism
         run: |
           echo "CCACHE_DIR=${{ github.workspace }}/.ccache" >> $GITHUB_ENV
+          echo "CCACHE_MAXSIZE=12G" >> $GITHUB_ENV
+          echo "CCACHE_COMPILERCHECK=content" >> $GITHUB_ENV
+          echo "CCACHE_NOHASHDIR=true" >> $GITHUB_ENV
+          echo "CCACHE_IGNOREOPTIONS=-sysroot*" >> $GITHUB_ENV
           echo "CCACHE_COMPRESS=true" >> $GITHUB_ENV
-          echo "CCACHE_COMPRESSLEVEL=6" >> $GITHUB_ENV
-          echo "CCACHE_CPP2=true" >> $GITHUB_ENV
+          echo "CCACHE_COMPRESSLEVEL=9" >> $GITHUB_ENV
           echo "CCACHE_BASEDIR=$GITHUB_WORKSPACE" >> $GITHUB_ENV
-          echo "KBUILD_BUILD_TIMESTAMP=2020-01-01" >> $GITHUB_ENV
-          echo "KBUILD_BUILD_VERSION=1" >> $GITHUB_ENV
+          echo "CCACHE_DIRECT=true" >> $GITHUB_ENV
+          echo "CCACHE_FILE_CLONE=true" >> $GITHUB_ENV
+          echo "CCACHE_INODE_CACHE=true" >> $GITHUB_ENV
+          echo "CCACHE_UMASK=002" >> $GITHUB_ENV
+          echo "CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime,pch_defines,system_headers,locale" >> $GITHUB_ENV
 
       - name: Ensure ccache is used
         run: |
