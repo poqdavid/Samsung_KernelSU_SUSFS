@@ -72,6 +72,41 @@ jobs:
         with:
           swap-size-gb: 25          # 10-24 GB is common for heavy LTO
         # swap-space-path: /mnt/swapfile   # optional
+
+      - name: Install ccache
+        run: sudo apt-get update && sudo apt-get install -y ccache
+
+      - name: Parse branch for hierarchical cache keys
+        run: |
+          FULL_BRANCH="${{ inputs.branch }}"
+          echo "FULL_BRANCH=$FULL_BRANCH" >> $GITHUB_ENV
+          
+          BASE_BRANCH=$(echo "$FULL_BRANCH" | sed -E 's/(-bit[0-9]+.*$)|(-bit.*$)//i')
+          echo "BASE_BRANCH=$BASE_BRANCH" >> $GITHUB_ENV
+
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          max-size: "10G"
+          key: ccache-${{ runner.os }}-${{ env.BASE_BRANCH }}
+          restore-keys: |
+            ccache-${{ runner.os }}-${{ env.BASE_BRANCH }}
+
+      - name: Export ccache + determinism
+        run: |
+          echo "CCACHE_DIR=${{ github.workspace }}/.ccache" >> $GITHUB_ENV
+          echo "CCACHE_COMPRESS=true" >> $GITHUB_ENV
+          echo "CCACHE_COMPRESSLEVEL=6" >> $GITHUB_ENV
+          echo "CCACHE_CPP2=true" >> $GITHUB_ENV
+          echo "CCACHE_BASEDIR=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+          echo "KBUILD_BUILD_TIMESTAMP=2020-01-01" >> $GITHUB_ENV
+          echo "KBUILD_BUILD_VERSION=1" >> $GITHUB_ENV
+
+      - name: Ensure ccache is used
+        run: |
+          echo 'export PATH="/usr/lib/ccache:$PATH"' >> $GITHUB_ENV
+          echo 'export CC="ccache clang"' >> $GITHUB_ENV
+          echo 'export CXX="ccache clang++"' >> $GITHUB_ENV
         
       - name: Set CONFIG Environment Variable
         run: |
