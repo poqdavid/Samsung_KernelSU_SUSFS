@@ -65,8 +65,8 @@ on:
         type: boolean
         default: true
 
-      ccache:
-        description: "use ccache?"
+      cache:
+        description: "use cache?"
         required: false
         default: true
         type: boolean
@@ -85,7 +85,7 @@ jobs:
       droidspace: ${{ inputs.droidspace }}
       ntsync: ${{ inputs.ntsync }}
       bbr: ${{ inputs.bbr }}
-      ccache: ${{ inputs.ccache }}
+      cache: ${{ inputs.cache }}
 
   release:
     runs-on: ubuntu-latest
