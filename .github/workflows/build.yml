@@ -284,9 +284,9 @@ jobs:
         if: inputs.cache == 'true' && inputs.build_type == 'make'
         run: ccache -s -v || ccache -s
 
-      - name: bazel cache stats
-        if: inputs.cache == 'true' && inputs.build_type == 'Bazel'
-        run: bazel analyze-profile profile.json
+#      - name: bazel cache stats
+#        if: inputs.cache == 'true' && inputs.build_type == 'Bazel'
+#        run: bazel analyze-profile profile.json
           
       - name: Prepare AnyKernel3
         uses: ./.github/actions/ak3zip-prep
