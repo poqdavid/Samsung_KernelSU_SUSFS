@@ -12,13 +12,13 @@ runs:
       cd kernel_platform
       touch .bazelrc
       cat >> .bazelrc << 'EOF'
-      build --disk_cache=${{ env.BCACHE_DIR }}
-      build --profile=profile.json
+      #build --disk_cache=${{ env.BCACHE_DIR }}
+      build --sandbox_writable_path=${{ env.CCACHE_DIR }}
       EOF
       else
       touch .bazelrc
       cat >> .bazelrc << 'EOF'
-      build --disk_cache=${{ env.BCACHE_DIR }}
-      build --profile=profile.json
+      #build --disk_cache=${{ env.BCACHE_DIR }}
+      build --sandbox_writable_path=${{ env.CCACHE_DIR }}
       EOF
       fi
