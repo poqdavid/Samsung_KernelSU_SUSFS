@@ -277,6 +277,7 @@ jobs:
         uses: ./.github/actions/build
         with:
          branch: ${{ inputs.branch }}
+         build_type: ${{ inputs.build_type }}
 
       - name: ccache stats
         if: inputs.cache == 'true' && inputs.build_type == 'make'
