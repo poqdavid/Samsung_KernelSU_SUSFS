@@ -12,47 +12,11 @@ runs:
       cd kernel_platform
       touch .bazelrc
       cat >> .bazelrc << 'EOF'
-      #build --disk_cache=${{ env.BCACHE_DIR }}
-      build --sandbox_writable_path=${{ env.CCACHE_DIR }}
-      build --action_env=CC="ccache clang"
-      build --action_env=CXX="ccache clang++"
-      build --action_env=HOSTCC="ccache clang"
-      build --action_env=HOSTCXX="ccache clang++"
+      build --disk_cache=${{ env.BCACHE_DIR }}
       EOF
       else
       touch .bazelrc
       cat >> .bazelrc << 'EOF'
-      #build --disk_cache=${{ env.BCACHE_DIR }}
-      build --sandbox_writable_path=${{ env.CCACHE_DIR }}
-      build --action_env=CC="ccache clang"
-      build --action_env=CXX="ccache clang++"
-      build --action_env=HOSTCC="ccache clang"
-      build --action_env=HOSTCXX="ccache clang++"
+      build --disk_cache=${{ env.BCACHE_DIR }}
       EOF
-      fi
-
-  - name: wrap ccache clang in directory
-    shell: bash
-    run: |
-      if [[ -d kernel_platform ]]; then
-      #Find clang bin dir dynamically
-      CLANG_BIN=$(find kernel_platform/prebuilts/clang/host/linux-x86 -type d -name bin | head -n 1)
-
-      echo "Using clang bin at: $CLANG_BIN"
-
-      # Wrap clang
-      mv "$CLANG_BIN/clang" "$CLANG_BIN/clang.real"
-      cat > "$CLANG_BIN/clang" << 'EOF'
-      #!/bin/bash
-      exec ccache "$(dirname "$0")/clang.real" "$@"
-      EOF
-      chmod +x "$CLANG_BIN/clang"
-
-      # Wrap clang++
-      mv "$CLANG_BIN/clang++" "$CLANG_BIN/clang++.real"
-      cat > "$CLANG_BIN/clang++" << 'EOF'
-      #!/bin/bash
-      exec ccache "$(dirname "$0")/clang++.real" "$@"
-      EOF
-      chmod +x "$CLANG_BIN/clang++"
       fi
