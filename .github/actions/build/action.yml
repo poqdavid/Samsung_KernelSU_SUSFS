@@ -38,6 +38,7 @@ runs:
        s/"kmi_symbol_list_strict_mode": True/"kmi_symbol_list_strict_mode": False/
        s/"trim_nonlisted_kmi": True/"trim_nonlisted_kmi": False/
        }
+       ' BUILD.bazel
        cd ..
        tools/bazel build //kernel:kernel_aarch64
       elif [[ ${{ inputs.branch }} == SM-A556* ]]; then
@@ -50,6 +51,7 @@ runs:
        s/"kmi_symbol_list_strict_mode": True/"kmi_symbol_list_strict_mode": False/
        s/"trim_nonlisted_kmi": True/"trim_nonlisted_kmi": False/
        }
+       ' BUILD.bazel
        cd ..
        tools/bazel build //kernel:kernel_aarch64
       fi
