@@ -97,10 +97,9 @@ jobs:
         uses: actions/cache@v4
         with:
          path: ${{ env.BCACHE_DIR }}
-         key: bcache-${{ runner.os }}-${{ inputs.build_type }}-${{ env.BASE_BRANCH }}
+         key: bcache-${{ runner.os }}-${{ inputs.build_type }}-${{ env.FULL_BRANCH }}
          restore-keys: |
-            bcache-${{ runner.os }}-${{ inputs.build_type }}-${{ env.BASE_BRANCH }}
-            bcache-${{ runner.os }}-${{ inputs.build_type }}-
+            bcache-${{ runner.os }}-${{ inputs.build_type }}-${{ env.FULL_BRANCH }}
 
       - name: Install ccache
         if: inputs.cache == 'true' && inputs.build_type == 'make'
