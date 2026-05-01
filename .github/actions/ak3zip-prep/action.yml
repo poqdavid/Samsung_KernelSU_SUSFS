@@ -15,6 +15,8 @@ runs:
 
      if [[ -f ./kernel_platform/bazel-bin/common/kernel_aarch64/Image ]]; then
        cp ./kernel_platform/bazel-bin/common/kernel_aarch64/Image "$ANYKERNEL3/Image"
+     elif [[ -f ./bazel-bin/kernel/kernel_aarch64/Image ]]; then
+     cp ./bazel-bin/kernel/kernel_aarch64/Image "$ANYKERNEL3/Image"
      elif [[ "${{ inputs.branch }}" == "SM-S928B-Oneui7" || "${{ inputs.branch }}" == "SM-S928B-Oneui8-bit4" || "${{ inputs.branch }}" == "SM-S928B-Oneui8-bit5" || "${{ inputs.branch }}" == "SM-F741B-Oneui8" ]]; then
        cp ./kernel_platform/sec/dist/Image "$ANYKERNEL3/Image"
      elif [[ "${{ inputs.branch }}" == "SM-S928B-Oneui6.1" ]]; then
