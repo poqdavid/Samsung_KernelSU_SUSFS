@@ -110,7 +110,7 @@ jobs:
         run: |
           CACHE_DIR="${{ github.workspace }}/.ccache"
           mkdir -p "$CACHE_DIR"
-          CCACHE_LOG="${{ github.workspace }}/ccache.log
+          CCACHE_LOG="${{ github.workspace }}/ccache.log"
           
           SETTINGS=(
           "CCACHE_DIR=$CACHE_DIR"
