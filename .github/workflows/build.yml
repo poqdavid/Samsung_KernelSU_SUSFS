@@ -118,15 +118,16 @@ jobs:
           "CCACHE_COMPILERCHECK=content"
           "CCACHE_BASEDIR=${GITHUB_WORKSPACE}"
           "CCACHE_NOHASHDIR=true"
-          "CCACHE_IGNOREOPTIONS=-sysroot*"
+          "CCACHE_IGNOREOPTIONS=-sysroot* -fdebug-prefix-map=* -fmacro-prefix-map=*"
           "CCACHE_COMPRESS=true"
-          "CCACHE_COMPRESSLEVEL=12"
+          "CCACHE_COMPRESSLEVEL=8"
           "CCACHE_DIRECT=true"
           "CCACHE_FILE_CLONE=true"
           "CCACHE_INODE_CACHE=true"
+          "CCACHE_IS_KERNEL_COMPILING=true"
           "CCACHE_UMASK=002"
           "KBUILD_BUILD_TIMESTAMP=2026-01-01"
-          "CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime,pch_defines,system_headers,locale"
+          "CCACHE_SLOPPINESS=file_macro,time_macros,include_file_mtime,include_file_ctime,pch_defines,system_headers,locale,file_stat_matches"
           )
 
           for setting in "${SETTINGS[@]}"; do
@@ -137,6 +138,11 @@ jobs:
           # ccache log file for debugging hit rate
           export "CCACHE_LOGFILE=$CCACHE_LOG"
           echo "CCACHE_LOGFILE=$CCACHE_LOG" >> $GITHUB_ENV
+
+          if ccache --help 2>&1 | grep -q 'depend_mode'; then
+              export CCACHE_DEPEND=true
+              echo "CCACHE_DEPEND=true" >> "$GITHUB_ENV"
+          fi
 
       - name: restore ccache
         if: inputs.cache == 'true' && inputs.build_type == 'make'
