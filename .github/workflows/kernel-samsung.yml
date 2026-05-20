@@ -149,6 +149,7 @@ jobs:
           - branch: "SM-S918B-Oneui8"
             android_version: "android13"
             kernel_version: "5.15"
+            build_type: "Bazel"
           - branch: "SM-S918B-Oneui7"
             android_version: "android13"
             kernel_version: "5.15"
