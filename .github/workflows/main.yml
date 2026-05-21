@@ -149,52 +149,52 @@ jobs:
           EOF
 
           if [ "${{ inputs.ksun }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> KernelSU-Next v3.2.0
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> KernelSU-Next v3.2.0
+          EOF
           fi
 
           if [ "${{ inputs.susfs }}" = "true" ]; then
-              cat <<'EOF' >> release_body.md
-            -> SUSFS ඞ v2.1.0
-            -> SUSFS Inline hooks
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> SUSFS ඞ v2.1.0
+          -> SUSFS Inline hooks
+          EOF
           fi
 
           if [ "${{ inputs.bbg }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> BBG: https://github.com/vc-teahouse/Baseband-guard
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> BBG: https://github.com/vc-teahouse/Baseband-guard
+          EOF
           fi
 
           if [ "${{ inputs.unicodefix }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> unicode fix
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> unicode fix
+          EOF
           fi
 
           if [ "${{ inputs.zeromount }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> Zeromount https://github.com/Enginex0/zeromount
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> Zeromount https://github.com/Enginex0/zeromount
+          EOF
           fi
 
           if [ "${{ inputs.droidspace }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> droidspaces support https://github.com/ravindu644/Droidspaces-OSS
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> droidspaces support https://github.com/ravindu644/Droidspaces-OSS
+          EOF
           fi
 
           if [ "${{ inputs.ntsync }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> ntsync
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> ntsync
+          EOF
           fi
 
           if [ "${{ inputs.bbr }}" = "true" ]; then
-            cat <<'EOF' >> release_body.md
-            -> bbrv1
-            EOF
+          cat <<'EOF' >> release_body.md
+          -> bbrv1
+          EOF
           fi
 
           cat <<'EOF' >> release_body.md
