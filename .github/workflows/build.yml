@@ -110,7 +110,6 @@ jobs:
         run: |
           CACHE_DIR="${{ github.workspace }}/.ccache"
           mkdir -p "$CACHE_DIR"
-          CCACHE_LOG="${{ github.workspace }}/ccache.log"
           
           SETTINGS=(
           "CCACHE_DIR=$CACHE_DIR"
@@ -148,7 +147,6 @@ jobs:
           key: ccache-${{ runner.os }}-${{ inputs.build_type }}-${{ env.BASE_BRANCH }}
           restore-keys: |
             ccache-${{ runner.os }}-${{ inputs.build_type }}-${{ env.BASE_BRANCH }}
-            ccache-${{ runner.os }}-${{ inputs.build_type }}-
             
       - name: Ensure ccache is used
         if: inputs.cache == 'true' && inputs.build_type == 'make'
@@ -312,16 +310,6 @@ jobs:
           path: |
             ./AnyKernel3/**
           compression-level: 9
-
-      - name: Upload ccache log
-        if: inputs.cache == 'true' && inputs.build_type == 'make'
-        uses: actions/upload-artifact@v6
-        with:
-         name: "${{ inputs.branch }}_ccache.log"
-         path: ${{ env.CCACHE_LOGFILE }}
-         archive: false
-         compression-level: 0
-         retention-days: 90
       
       - name: Scan and collect patch rejects
         if: ${{ always() }}
