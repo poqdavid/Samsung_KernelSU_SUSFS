@@ -1,5 +1,5 @@
 name: add bbrv1
-description: enable configs to add bbrv1 to kernel
+description: enable configs to add bbrv3 to kernel
 
 runs:
  using: composite
@@ -8,19 +8,20 @@ runs:
     shell: bash
     run: |
      cd "$COMMON"
-     curl -L -s https://raw.githubusercontent.com/WildKernels/kernel_patches/refs/heads/main/samsung/kernel6.1/bbrv3-integration.patch | patch -p1
-     curl -L -s https://raw.githubusercontent.com/WildKernels/kernel_patches/refs/heads/main/samsung/kernel6.1/bbrv3-compat.patch | patch -p1
+     curl -L -s https://raw.githubusercontent.com/fatalcoder524/kernel_patches_additional/refs/heads/main/bbr3/0001-Test-a13-5.15-bbrv3.patch | patch -p1 -F 3
      
   - name: add bbr configs to defconfig
     shell: bash
     run: |
      cat >> "$GKI_DEFCONFIG" << 'EOF'
-     # Add bbrv1
+     # enable bbr
      CONFIG_NET_SCH_FQ=y
+     CONFIG_NET_SCH_FQ_CODEL=y
      CONFIG_TCP_CONG_ADVANCED=y
      CONFIG_TCP_CONG_BBR=y
+     CONFIG_TCP_CONG_BBR3=y
      CONFIG_TCP_CONG_CUBIC=y
-     CONFIG_DEFAULT_BBR=y
+     CONFIG_DEFAULT_CUBIC=y
      # CONFIG_TCP_CONG_BIC is not set
      # CONFIG_TCP_CONG_WESTWOOD is not set
      # CONFIG_TCP_CONG_HTCP is not set
