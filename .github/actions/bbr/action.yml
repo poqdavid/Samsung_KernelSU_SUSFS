@@ -15,12 +15,8 @@ runs:
     shell: bash
     run: |
      cd "$COMMON"
+     curl -L -s "https://raw.githubusercontent.com/jimsterino98/kernel_patches_additional/refs/heads/main/bbr3/0001-Test-${{ inputs.android_version }}-${{ inputs.kernel_version }}-bbrv3.patch" | patch -p1 -F 3
 
-     if [[ "${{ inputs.kernel_version }}" == "6.1" ]]; then
-      curl -L -s "https://raw.githubusercontent.com/fatalcoder524/kernel_patches_additional/refs/heads/main/bbr3/0001-Test-android13-5.15-bbrv3.patch" | patch -p1 -F 3
-     else
-      curl -L -s "https://raw.githubusercontent.com/fatalcoder524/kernel_patches_additional/refs/heads/main/bbr3/0001-Test-${{ inputs.android_version }}-${{ inputs.kernel_version }}-bbrv3.patch" | patch -p1 -F 3
-     fi
      
   - name: add bbr configs to defconfig
     shell: bash
