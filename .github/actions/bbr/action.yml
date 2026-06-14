@@ -1,4 +1,4 @@
-name: add bbrv1
+name: add bbrv3
 description: enable configs to add bbrv3 to kernel
 inputs:
   android_version:
