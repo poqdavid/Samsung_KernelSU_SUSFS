@@ -15,7 +15,7 @@ runs:
     shell: bash
     run: |
      cd "$COMMON"
-     curl -L -s "https://raw.githubusercontent.com/fatalcoder524/kernel_patches_additional/refs/heads/main/bbr3/0001-Test-${{ inputs.android_version }}-${{ inputs.kernel_version }}-bbrv3.patch" | patch -p1 -F 3
+     curl -L -s "https://raw.githubusercontent.com/WildKernels/kernel_patches/refs/heads/main/bbr/bbrv3-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch" | patch -p1 -F 3
 
      
   - name: add bbr configs to defconfig
